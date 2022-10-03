@@ -28,7 +28,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Frontmania',
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Frontmania'),
