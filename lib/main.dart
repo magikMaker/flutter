@@ -1,11 +1,22 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-main() {
-  runApp(const MyApp());
+import 'camera.dart';
+
+List<CameraDescription> cameras = [];
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp();
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +24,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Hello Frontmania'),
+          title: const Text('Frontmania with Camera'),
+        ),
+        body: CameraView(
+          camera: cameras[0],
         ),
       ),
     );

@@ -7,13 +7,13 @@ class CameraView extends StatefulWidget {
   CameraView(
       {Key? key,
       required this.camera,
-      required this.customPaint,
-      required this.onImage})
+      this.customPaint,
+      this.onImage})
       : super(key: key);
 
   final CameraDescription camera;
   final CustomPaint? customPaint;
-  final Function(InputImage inputImage) onImage;
+  final Function(InputImage inputImage)? onImage;
 
   @override
   State<CameraView> createState() => _CameraViewState();
@@ -59,7 +59,7 @@ class _CameraViewState extends State<CameraView> {
       enableAudio: false,
     );
     _controller?.initialize().then((_) {
-      if (!mounted) {
+      if (!mounted || widget.onImage == null) {
         return;
       }
       _controller?.startImageStream(_processCameraImage);
@@ -111,6 +111,6 @@ class _CameraViewState extends State<CameraView> {
     final inputImage =
         InputImage.fromBytes(bytes: bytes, inputImageData: inputImageData);
 
-    widget.onImage(inputImage);
+      widget.onImage!(inputImage);
   }
 }
