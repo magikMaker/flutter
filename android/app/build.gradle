@@ -32,7 +32,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.google_mlkit_example"
+        applicationId "eu.provaz.frontmania"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
