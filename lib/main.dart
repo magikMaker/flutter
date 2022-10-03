@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Frontmania'),
+          title: const Text('Frontmania Object Detection'),
         ),
         body: CameraView(
           camera: cameras[0],
