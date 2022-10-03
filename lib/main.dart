@@ -10,7 +10,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Frontmania',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
