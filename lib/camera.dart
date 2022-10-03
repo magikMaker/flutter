@@ -6,14 +6,14 @@ import 'package:google_mlkit_commons/google_mlkit_commons.dart';
 class CameraView extends StatefulWidget {
   CameraView(
       {Key? key,
-      required this.camera,
-      required this.customPaint,
-      required this.onImage})
+        required this.camera,
+        this.customPaint,
+        this.onImage})
       : super(key: key);
 
   final CameraDescription camera;
   final CustomPaint? customPaint;
-  final Function(InputImage inputImage) onImage;
+  final Function(InputImage inputImage)? onImage;
 
   @override
   State<CameraView> createState() => _CameraViewState();
@@ -59,7 +59,7 @@ class _CameraViewState extends State<CameraView> {
       enableAudio: false,
     );
     _controller?.initialize().then((_) {
-      if (!mounted) {
+      if (!mounted || widget.onImage == null) {
         return;
       }
       _controller?.startImageStream(_processCameraImage);
@@ -81,18 +81,18 @@ class _CameraViewState extends State<CameraView> {
     final bytes = allBytes.done().buffer.asUint8List();
 
     final Size imageSize =
-        Size(image.width.toDouble(), image.height.toDouble());
+    Size(image.width.toDouble(), image.height.toDouble());
 
     final imageRotation =
-        InputImageRotationValue.fromRawValue(widget.camera.sensorOrientation);
+    InputImageRotationValue.fromRawValue(widget.camera.sensorOrientation);
     if (imageRotation == null) return;
 
     final inputImageFormat =
-        InputImageFormatValue.fromRawValue(image.format.raw);
+    InputImageFormatValue.fromRawValue(image.format.raw);
     if (inputImageFormat == null) return;
 
     final planeData = image.planes.map(
-      (Plane plane) {
+          (Plane plane) {
         return InputImagePlaneMetadata(
           bytesPerRow: plane.bytesPerRow,
           height: plane.height,
@@ -109,8 +109,8 @@ class _CameraViewState extends State<CameraView> {
     );
 
     final inputImage =
-        InputImage.fromBytes(bytes: bytes, inputImageData: inputImageData);
+    InputImage.fromBytes(bytes: bytes, inputImageData: inputImageData);
 
-    widget.onImage(inputImage);
+    widget.onImage!(inputImage);
   }
 }
