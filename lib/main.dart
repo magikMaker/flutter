@@ -56,8 +56,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> processImage(InputImage inputImage) async {
-    if (!_canProcess) return;
-    if (_isBusy) return;
+    if (!_canProcess || _isBusy) return;
 
     _isBusy = true;
     final objects = await _objectDetector.processImage(inputImage);
